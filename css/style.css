@@ -81,10 +81,26 @@ h1 {
     width: 60%;
   }
 
-  #showGrid{
+ #showGrid{
     padding: 10px 20px;
     font-size: 16px;
-  }
+}
+
+.resetAndErase {
+    display: flex;
+    width: 60%;
+}
+
+#reset{
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.drawingStyle {
+    display: flex;
+    width: 60%;
+}
+
 
 .footer {
     width: 100%;

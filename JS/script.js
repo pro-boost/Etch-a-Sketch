@@ -24,41 +24,71 @@ function getGrid() {
         let box = document.createElement("div");
         box.style.width= "calc(100% /" + gridSize + ")";
         box.style.height= "calc(100% /" + gridSize + ")";
-        rainbowColor()
-
+        rainbowColor();
+        showGrid();
         box.classList.add("box");
         container.appendChild(box);
 
+
+
+
         let rainbowColorButton = document.querySelector("#rainbowColor");
+        let isMouseOverEnabled = true;
+
 
         function rainbowColor(){
-            box.addEventListener("mouseover", () => {
-                box.style.backgroundColor=randomColor();
-                setTimeout(() => {
-                    box.style.backgroundColor = "white";
-                    }, 200); 
-                });
-
+            box.addEventListener("mouseover", function() {
+                if (isMouseOverEnabled) {
+                    box.style.backgroundColor=randomColor();
+                            setTimeout(() => {
+                                box.style.backgroundColor = "white";
+                                }, 200);
+                }
+            });
             box.addEventListener("click", () => {
+                isMouseOverEnabled = false;
                 box.style.backgroundColor = randomColor();
+
             });
         }
         rainbowColorButton.addEventListener("click", rainbowColor);       
 
         let darkColorButton = document.querySelector("#darkColor");
         function  darkColor(){
-
+            
             box.addEventListener("click", () => {
+                isMouseOverEnabled = false;
                 box.style.backgroundColor = "black";
             });
             box.addEventListener("mouseover", () => {
+                if (isMouseOverEnabled) {
                 box.style.backgroundColor=generateGrayShade();
                 setTimeout(() => {
                     box.style.backgroundColor = "white";
                     }, 200); 
+                }
             });
         }
         darkColorButton.addEventListener("click", darkColor);
+
+        let eraseButton = document.querySelector("#erase");
+        function erase (){
+            box.addEventListener("click", () => {
+                isMouseOverEnabled = false;
+                box.style.backgroundColor = "white";
+            });
+        }
+        eraseButton.addEventListener("click", erase);
+
+        let resetButton = document.querySelector("#reset");
+        function reset(){
+            box.style.backgroundColor = "white";
+        }
+        resetButton.addEventListener("click", reset);
+
+
+
+
         
         let showGridButton = document.querySelector("#showGrid");
         function showGrid(){
