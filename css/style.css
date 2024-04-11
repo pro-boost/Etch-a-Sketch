@@ -65,9 +65,9 @@ h1 {
     display: flex;
     width: 60%;
 }
-.rainbow-btn {
+#rainbowColor {
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-    color: rgb(173, 173, 173);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     padding: 10px 20px;
     font-size: 16px;
@@ -75,13 +75,17 @@ h1 {
     border-radius: 5px;
     animation: rainbow-animation 10s linear infinite;
   }
-  
-  @keyframes rainbow-animation {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+
+.grid{
+    display: flex;
+    width: 60%;
   }
-  
-  
+
+  #showGrid{
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
 .footer {
     width: 100%;
     padding: 15px;
