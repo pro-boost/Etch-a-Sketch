@@ -50,6 +50,8 @@ function getGrid() {
                 box.style.backgroundColor = randomColor();
 
             });
+            container.classList.remove("eraser");
+            container.classList.add("brush");
         }
         rainbowColorButton.addEventListener("click", rainbowColor);       
 
@@ -68,11 +70,18 @@ function getGrid() {
                     }, 200); 
                 }
             });
+            container.classList.remove("eraser");
+            container.classList.add("brush");
         }
         darkColorButton.addEventListener("click", darkColor);
 
+
+
+// Erase and reset buttons
         let eraseButton = document.querySelector("#erase");
         function erase (){
+            container.classList.remove("brush");
+            container.classList.add('eraser')
             box.addEventListener("click", () => {
                 isMouseOverEnabled = false;
                 box.style.backgroundColor = "white";
@@ -87,9 +96,7 @@ function getGrid() {
         resetButton.addEventListener("click", reset);
 
 
-
-
-        
+// Show and clear grid        
         let showGridButton = document.querySelector("#showGrid");
         function showGrid(){
         box.style.border="1px solid black"
