@@ -9,9 +9,31 @@
     <title>Etch-a-Sketch</title>
 </head>
 <body>
-    <div class="container">
+    <div class="content">
+        <div class="header bg-dark text-white">
+                <h1 class="text-center">Etch-a-Sketch</h1>
+                <p class="lead text-center mt-5">Draw anything you like! Just click and drag your mouse.</p>
+                </p>
+        </div>
+    <div class="game-core">
+        <div class="container">
+        </div> 
+        <div class="input">
+            <input class="form-control text-center m-2" type="number" id="gridSizeInput" min="4" max="100" placeholder="Enter grid size (4-100, default 16x16)" onkeypress="handleKeyPress(event)">
+            <button class="btn btn-primary m-2" onkeypress="handleKeyPress(event)" onclick="getGrid()">Validate</button>
+        </div>
+        Chose a color :
+        <div class="colors">
+            
+            <button class="btn btn-primary w-100 m-2 rainbow-btn">Rainbow</button>
+            <button class="btn btn-dark w-100 m-2">Dark</button>
+        </div>
     </div>
-    
+    <div class="footer bg-dark text-white-50 text-center m-0 p-3">
+        <span>copyright & copy ; 2021</span>
+        <span class="fw-light text-white-50">By med-ctrl 10-04-2024</span>
+    </div>
+</div>
 </body>
 </html>
 
