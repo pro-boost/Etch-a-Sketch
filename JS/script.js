@@ -21,6 +21,7 @@ function getGrid() {
     let gridSize = parseInt(gridSizeInput.value) || 16;
     gridSize = Math.min(Math.max(gridSize, 4), 50);
     container.innerHTML = "";
+    gridSizeInput.value = "";
 
     for (let i = 0; i < gridSize * gridSize; i++) {
         let box = document.createElement("div");
@@ -28,9 +29,10 @@ function getGrid() {
         box.style.width = `calc(100% / ${gridSize})`;
         box.style.height = `calc(100% / ${gridSize})`;
         box.style.backgroundColor = "white";
+        box.style.border = "1px solid black";
         container.appendChild(box);
     }
-
+    
     // Attach event listeners
     container.addEventListener("mouseover", handleMouseOverMode);
     container.addEventListener("click", handleClickMode);
@@ -196,3 +198,11 @@ function randomColor() {
     let b = Math.floor(Math.random() * 230);
     return `rgb(${r},${g},${b})`;
 }
+
+// Event listener for pressing Enter key on the input field
+gridSizeInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        getGrid();
+
+    }
+});

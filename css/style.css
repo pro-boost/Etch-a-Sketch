@@ -11,7 +11,7 @@ h1 {
 }
 
 .content {
-    background-image: url("./images/background.jpg");
+    background-image: url("../img/9208490.jpg");/*<a href="https://www.freepik.com/free-vector/art-supplies-background_49550391.htm#fromView=search&page=1&position=6&uuid=c9e78bc1-f363-42ce-aa9a-c58928d2722b">Image by freepik</a>*/
     background-position: center;
     display: flex;
     flex-direction: column;
@@ -53,56 +53,59 @@ h1 {
     border: 2px solid black;
 }
 
-.input{
+.dynamic,
+.fixed{
     display: flex;
-    margin-top: 15px;
-    width: 60%;
     justify-content: center;
-    align-items: center;;
+    align-items: center;
 }
 
-.colors{
-    display: flex;
-    width: 60%;
-}
 #rainbowColor {
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     color: rgb(255, 255, 255);
-    font-weight: bold;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    animation: rainbow-animation 10s linear infinite;
   }
 
-.grid{
-    display: flex;
-    width: 60%;
+#darkColor {
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(63, 63, 63), rgb(152, 152, 152), rgb(187, 187, 187));
+    border : 1px solid white;
   }
+  
 
- #showGrid{
-    padding: 10px 20px;
-    font-size: 16px;
+#pick{
+        width: 100px; 
+        height: 40px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 }
-
-.resetAndErase {
+.grid,
+.input{
     display: flex;
-    width: 60%;
+    justify-content: center;
+    align-items: center;
+
 }
 
-#reset{
-    padding: 10px 20px;
-    font-size: 16px;
-}
-
-.drawingStyle {
+.resetAndErase{
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    padding: 20px;
+    margin: 10px;
+  }
+.setting{
+    width: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    padding: 20px;
+    margin: 10px;
+  }
+button,
+#gridSizeInput {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .brush {
-    cursor: url('../img/brush_FILL0_wght400_GRAD0_opsz24.svg'), auto;
+    cursor: url('../img/format_paint_FILL0_wght400_GRAD0_opsz24.png'), auto;
 }
 .eraser {
     cursor: url('../img/ink_eraser_FILL0_wght400_GRAD0_opsz24.svg'), auto;
