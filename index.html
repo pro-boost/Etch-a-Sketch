@@ -19,30 +19,27 @@
         <div class="container">
         </div> 
         <div class="input">
-            <input class="form-control text-center m-2" type="number" id="gridSizeInput" min="4" max="100" placeholder="Enter grid size (4-50, default 16x16)" onkeypress="handleKeyPress(event)">
+            <input class="form-control text-center m-2" type="number" id="gridSizeInput" min="4" max="100" placeholder="Enter grid size (4-50, default 16x16)">
             <button class="btn btn-primary m-2" onkeypress="handleKeyPress(event)" onclick="getGrid()">Validate</button>
         </div>
         Chose a color :
         <div class="colors">
             <button class="btn btn-warning w-100 m-2" id="rainbowColor">Rainbow</button>
             <button class="btn btn-dark w-100 m-2" id="darkColor">Dark</button>
-            <input id="pick" type="color">
+
         </div>
         Chose grid display :
         <div class="grid">
             <button class="btn btn-primary w-100 m-2" id="showGrid">Show Grid</button>
-            <button class="btn btn-primary w-100 m-2" id="clearGrid">Clear Grid</button>
+            <button class="btn btn-primary w-100 m-2" id="clearGrid">Hide Grid</button>
         </div>
         Reset and erase :
         <div class="resetAndErase">
             <button class="btn btn-primary w-100 m-2" id="reset">Reset</button>
             <button class="btn btn-primary w-100 m-2" id="erase">Erase</button>
         </div>
-        Reset style :
-        <div class="drawingStyle">
-            <button class="btn btn-primary w-100 m-2" id="hover">Hover</button>
-            <button class="btn btn-primary w-100 m-2" id="draw">Draw</button>
-        </div>
+        <button class="btn btn-primary w-100 m-2" id="choseColor">chose Color</button>
+        <input id="pick" type="color">
     </div>
 
     

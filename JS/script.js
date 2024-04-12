@@ -1,167 +1,131 @@
 // Initialize variables and generate grid on page load
-let container = document.querySelector(".container");
-const pick = document.querySelector("#pick");
-let gridSize = 16;
+const container = document.querySelector(".container");
+const gridSizeInput = document.querySelector("#gridSizeInput");
+const rainbowColorButton = document.querySelector("#rainbowColor");
+const darkColorButton = document.querySelector("#darkColor");
+const eraseButton = document.querySelector("#erase");
+let isDrawing = false;
+//const pick = document.querySelector("#pick");
 
 getGrid();
-
-document.querySelector("#gridSizeInput").addEventListener("change", function() {
-    gridSize = parseInt(this.value); 
-    getGrid(); 
-});
-
-
-
+showGrid();
+setRainbowColor();
 
 function getGrid() {
-    if(gridSize > 50){
-        gridSize = 50;
-    }
-    if(gridSize < 4){
-        gridSize = 4;
-    }
-    if (isNaN(gridSize)) {
-        gridSize = 16;
-    }
-
+    let gridSize = parseInt(gridSizeInput.value) || 16;
+    gridSize = Math.min(Math.max(gridSize, 4), 50);
     container.innerHTML = "";
+    
     for (let i=0; i<gridSize*gridSize; i++) {
-
         let box = document.createElement("div");
+        box.classList.add("box");
         box.style.width= "calc(100% /" + gridSize + ")";
         box.style.height= "calc(100% /" + gridSize + ")";
         box.style.backgroundColor= "white";
-        box.classList.add("box");
         container.appendChild(box);
+    }
+    showGrid();
+    // Attach event listeners
+    container.addEventListener("mouseover", handleColorMode);
+    container.addEventListener("click", handleColorMode);
+    container.addEventListener("mousedown", () => { isDrawing = true; });
+    container.addEventListener("mouseup", () => { isDrawing = false; });
+    container.addEventListener("mousemove", handleMouseMove);
 
+    rainbowColorButton.addEventListener("click", setRainbowColor);
+    darkColorButton.addEventListener("click", setDarkColor);
+    eraseButton.addEventListener("click", setEraser);
+}      
 
-        showGrid();
+function handleColorMode(event) {
+    const box = event.target;
+    if (!box.classList.contains("box")) return;
 
-        let rainbowColorButton = document.querySelector("#rainbowColor");
-        let darkColorButton = document.querySelector("#darkColor");
-        let isDrawing = false;
-        
-        function handleColorMode(event) {
-            const box = event.target;
-            if (box.classList.contains('box')) {
-                if (container.classList.contains('rainbow')) {
-                    if (!isDrawing && box.style.backgroundColor === 'white') {
-                        box.style.backgroundColor = randomColor();
-                        setTimeout(() => {
-                            box.style.backgroundColor = 'white';
-                        }, 200);
-                    }
-                } else if (container.classList.contains('dark')) {
-                    if (!isDrawing && box.style.backgroundColor === 'white') {
-                        box.style.backgroundColor = generateGrayShade();
-                        setTimeout(() => {
-                            box.style.backgroundColor = 'white';
-                        }, 200);
-                    }
-                }
-            }
-        }
-        
-        container.addEventListener('mouseover', handleColorMode);
-        container.addEventListener('click', handleColorMode);
-        container.addEventListener('mousedown', () => {
-            isDrawing = true;
-        });
-        container.addEventListener('mouseup', () => {
-            isDrawing = false;
-        });
-        container.addEventListener('mousemove', event => {
-            const box = event.target;
-            if (isDrawing && box.classList.contains('box') && box.style.backgroundColor === 'white') {
-                if (container.classList.contains('rainbow')) {
-                    box.style.backgroundColor = randomColor();
-                } else if (container.classList.contains('dark')) {
-                    box.style.backgroundColor = generateGrayShade();
-                }
-            }
-        });
-        
-        function setRainbowColor() {
-            container.classList.remove('dark');
-            container.classList.add('rainbow');
-            container.classList.add("brush");
-            container.classList.remove('eraser');
-        }
-        
-        rainbowColorButton.addEventListener('click', setRainbowColor);
-        rainbowColorButton.click();
-        
-        function setDarkColor() {
-            container.classList.remove('rainbow');
-            container.classList.add('dark');
-            container.classList.add("brush");
-            container.classList.remove('eraser');
-        }
-        
-        darkColorButton.addEventListener('click', setDarkColor);
-        
-
-
-// Erase and reset buttons
-let eraseButton = document.querySelector("#erase");
-
-function erase() {
-    container.classList.remove("brush");
-    container.classList.add('eraser');
-    // Remove the event listener
-    container.classList.remove('rainbow');
-    container.classList.remove('dark');
-
-    container.addEventListener('click', event => {
-        const box = event.target;
-        if (box.classList.contains('box') && box.style.backgroundColor !== "white") {
-            box.style.backgroundColor = "white";
-        }
-    });
-
-    container.addEventListener('mousedown', () => {
-        isDrawing = true;
-    });
-
-    container.addEventListener('mouseup', () => {
-        isDrawing = false;
-    });
-
-    container.addEventListener('mousemove', event => {
-        const box = event.target;
-        if (isDrawing && box.classList.contains('box') && box.style.backgroundColor !== 'white') {
-            box.style.backgroundColor = 'white';
-        }
-    });  
-}
-
-eraseButton.addEventListener("click", erase);
-
-
-
-        let resetButton = document.querySelector("#reset");
-        function reset(){
-            box.style.backgroundColor = "white";
-        }
-        resetButton.addEventListener("click", reset);
-
-
-// Show and clear grid        
-        let showGridButton = document.querySelector("#showGrid");
-        function showGrid(){
-        box.style.border="1px solid black"
-        }
-        showGridButton.addEventListener("click", showGrid);
-
-        let clearGridButton = document.querySelector("#clearGrid");
-        function clearGrid(){
-        box.style.border="0px"
-        }
-        clearGridButton.addEventListener("click", clearGrid);
+    if (container.classList.contains("rainbow")) {
+        handleRainbowMode(box);
+    } else if (container.classList.contains("dark")) {
+        handleDarkMode(box);
+    } else if (container.classList.contains("eraser")) {
+        handleEraserMode(box);
     }
 }
 
+function handleRainbowMode(box) {
+    if (!isDrawing && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = randomColor();
+        setTimeout(() => {
+            box.style.backgroundColor = "white";
+        }, 200);
+    }
+}
 
+function handleDarkMode(box) {
+    if (!isDrawing && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = generateGrayShade();
+        setTimeout(() => {
+            box.style.backgroundColor = "white";
+        }, 200);
+    }
+}
+
+function handleEraserMode(box) {
+    if (!isDrawing && box.style.backgroundColor !== "white") {
+        box.style.backgroundColor = "white";
+    }
+}
+
+function handleMouseMove(event) {
+    if (!isDrawing) return;
+    const box = event.target;
+    if (!box.classList.contains("box")) return;
+
+    if (container.classList.contains("rainbow") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = randomColor();
+    } else if (container.classList.contains("dark") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = generateGrayShade();
+    } else if (container.classList.contains("eraser") && box.style.backgroundColor !== "white") {
+        box.style.backgroundColor = "white";
+    }
+}
+
+function setRainbowColor() {
+    container.classList.remove("dark", "eraser");
+    container.classList.add("rainbow", "brush");
+}
+
+function setDarkColor() {
+    container.classList.remove("rainbow", "eraser");
+    container.classList.add("dark", "brush");
+}
+
+function setEraser() {
+    container.classList.remove("rainbow", "dark", "brush");
+    container.classList.add("eraser");
+}
+
+function reset() {
+    const boxes = container.querySelectorAll(".box");
+    boxes.forEach(box => {
+        box.style.backgroundColor = "white";
+    });
+}
+
+function showGrid() {
+    const boxes = container.querySelectorAll(".box");
+    boxes.forEach(box => {
+        box.style.border = "1px solid black";
+    });
+}
+
+function clearGrid() {
+    const boxes = container.querySelectorAll(".box");
+    boxes.forEach(box => {
+        box.style.border = "0px";
+    });
+}
+document.querySelector("#reset").addEventListener("click", reset);
+document.querySelector("#showGrid").addEventListener("click", showGrid);
+document.querySelector("#clearGrid").addEventListener("click", clearGrid);
 
 // Generate black and white shades
 function generateGrayShade() {
@@ -178,11 +142,8 @@ function randomColor() {
     return "rgb(" + r + "," + g + "," + b + ")";
 }
 
-
-document.addEventListener('keypress', handleKeyPress);
-
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
+document.addEventListener("keypress", event => {
+    if (event.key === "Enter") {
         getGrid();
     }
-}
+});
