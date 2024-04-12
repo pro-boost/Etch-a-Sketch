@@ -15,6 +15,8 @@ let chosenColor = ""; // Initialize variable to store chosen color
 getGrid();
 showGrid();
 setRainbowColor();
+gridSizeInput.focus();
+
 
 // Function to generate the grid
 function getGrid() {
