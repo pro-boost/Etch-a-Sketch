@@ -33,6 +33,7 @@ h1 {
     justify-content: center;
     margin: 0 auto;
     padding: 70px;
+    padding-bottom: 50px;
     background-color: rgb(255, 255, 230);
     width: 1000px;   
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -139,4 +140,15 @@ button,
     .footer {
         flex-direction: column;
     }
+    .container{
+        width: 300px !important;
+        height: 300px !important;
+        padding: 0 !important;
+    }
+
+    .setting,
+    .resetAndErase {
+        width: 100%;
+    }
+
 }
