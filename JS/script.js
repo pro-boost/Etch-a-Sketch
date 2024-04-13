@@ -134,6 +134,10 @@ function reset() {
     boxes.forEach(box => {
         box.style.backgroundColor = "white";
     });
+    //close modal after reset confirmation
+    const modalElement = document.getElementById("staticBackdrop");
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    modal.hide();
 }
 
 function showGrid() {
