@@ -129,6 +129,27 @@ function setEraser() {
     container.classList.add("eraser");
 }
 
+// Event listeners to be able to draw on touch screens devices
+container.addEventListener("touchmove", handleTouchMove);
+container.addEventListener("touchstart", () => { isDrawing = true; });
+
+function handleTouchMove(event) {
+    event.preventDefault(); // Prevent scrolling while drawing
+    const touch = event.touches[0];
+    const box = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (!box || !box.classList.contains("box")) return;
+
+    if (container.classList.contains("rainbow") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = randomColor();
+    } else if (container.classList.contains("dark") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = generateDarkShade();
+    } else if (container.classList.contains("color") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = chosenColor;
+    } else if (container.classList.contains("eraser") && box.style.backgroundColor !== "white") {
+        box.style.backgroundColor = "white";
+    }
+}
+
 function reset() {
     const boxes = container.querySelectorAll(".box");
     boxes.forEach(box => {
