@@ -7,7 +7,7 @@ const eraseButton = document.querySelector("#erase");
 const pick = document.querySelector("#pick");
 
 let isDrawing = false;
-let chosenColor = ""; 
+let chosenColor = "#01DBC2"; 
 
 getGrid();
 showGrid();
@@ -156,16 +156,17 @@ document.querySelector("#clearGrid").addEventListener("click", clearGrid);
 
 function randomColor() {
     let randomColor = "";
-    randomColor = `hsl(${Math.random() * 360},100%,50%)`;
+    randomColor = `hsl(${Math.random() * 360},100%,50%)`; // to have only joyful bright colors
     return randomColor;
 }
 
 function generateDarkShade() {
-    let Rnum = Math.floor(Math.random() * 200);
+    let Rnum = Math.floor(Math.random() * 200);//stop at 200 to not have white or near white colors (my code won't work as expected if a box is white)
     return `rgb(${Rnum},${Rnum},${Rnum})`;
 }
 
 pick.addEventListener("input", () => {
+    
     chosenColor = pick.value;
 });
 
