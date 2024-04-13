@@ -48,12 +48,24 @@ function handleMouseOverMode(event) {
     const box = event.target;
 
     if (!box.classList.contains("box")) return;
-    if (container.classList.contains("rainbow")) {
-        handleRainbowMode(box);
-    } else if (container.classList.contains("dark")) {
-        handleDarkMode(box);
-    } else if (container.classList.contains("color")) {
-        handleColorPickerMode(box);
+    if (container.classList.contains("rainbow") 
+    && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = randomColor();
+        setTimeout(() => {
+            box.style.backgroundColor = "white";
+        }, 200);
+    } else if (container.classList.contains("dark") 
+    && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = generateDarkShade();
+        setTimeout(() => {
+            box.style.backgroundColor = "white";
+        }, 200);
+    } else if (container.classList.contains("color") 
+    && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = chosenColor;
+        setTimeout(() => {
+            box.style.backgroundColor = "white";
+        }, 200);
     }
 }
 
@@ -62,13 +74,17 @@ function handleClickMode(event) {
     const box = event.target;
     if (!box.classList.contains("box")) return;
 
-    if (container.classList.contains("rainbow") && box.style.backgroundColor === "white") {
+    if (container.classList.contains("rainbow") 
+    && box.style.backgroundColor === "white") {
         box.style.backgroundColor = randomColor();
-    } else if (container.classList.contains("dark") && box.style.backgroundColor === "white") {
+    } else if (container.classList.contains("dark") 
+    && box.style.backgroundColor === "white") {
         box.style.backgroundColor = generateDarkShade();
-    } else if (container.classList.contains("color") && box.style.backgroundColor === "white") {
+    } else if (container.classList.contains("color") 
+    && box.style.backgroundColor === "white") {
         box.style.backgroundColor = chosenColor;
-    } else if (container.classList.contains("eraser") && box.style.backgroundColor !== "white") {
+    } else if (container.classList.contains("eraser") 
+    && box.style.backgroundColor !== "white") {
         box.style.backgroundColor = "white";
     }
 }
@@ -78,46 +94,17 @@ function handleMouseMove(event) {
     const box = event.target;
     if (!box.classList.contains("box")) return;
 
-    if (container.classList.contains("rainbow") && box.style.backgroundColor === "white") {
+    if (container.classList.contains("rainbow") 
+    && box.style.backgroundColor === "white") {
         box.style.backgroundColor = randomColor();
-    } else if (container.classList.contains("dark") && box.style.backgroundColor === "white") {
+    } else if (container.classList.contains("dark") 
+    && box.style.backgroundColor === "white") {
         box.style.backgroundColor = generateDarkShade();
-    } else if (container.classList.contains("color") && box.style.backgroundColor === "white") {
+    } else if (container.classList.contains("color") 
+    && box.style.backgroundColor === "white") {
         box.style.backgroundColor = chosenColor;
-    } else if (container.classList.contains("eraser") && box.style.backgroundColor !== "white") {
-        box.style.backgroundColor = "white";
-    }
-}
-
-function handleRainbowMode(box) {
-    if (!isDrawing && box.style.backgroundColor === "white") {
-        box.style.backgroundColor = randomColor();
-        setTimeout(() => {
-            box.style.backgroundColor = "white";
-        }, 200);
-    }
-}
-
-function handleDarkMode(box) {
-    if (!isDrawing && box.style.backgroundColor === "white") {
-        box.style.backgroundColor = generateDarkShade();
-        setTimeout(() => {
-            box.style.backgroundColor = "white";
-        }, 200);
-    }
-}
-
-function handleColorPickerMode(box) {
-    if (!isDrawing && box.style.backgroundColor === "white") {
-        box.style.backgroundColor = chosenColor;
-        setTimeout(() => {
-            box.style.backgroundColor = "white";
-        }, 200);
-    }
-}
-
-function handleEraserMode(box) {
-    if (!isDrawing && box.style.backgroundColor !== "white") {
+    } else if (container.classList.contains("eraser") 
+    && box.style.backgroundColor !== "white") {
         box.style.backgroundColor = "white";
     }
 }
