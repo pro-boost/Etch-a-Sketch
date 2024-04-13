@@ -44,8 +44,10 @@ function getGrid() {
 }
 
 function handleMouseOverMode(event) {
+    if (isDrawing) return;
     const box = event.target;
-    if (!box || !box.classList || !box.classList.contains("box")) return;
+
+    if (!box.classList.contains("box")) return;
     if (container.classList.contains("rainbow")) {
         handleRainbowMode(box);
     } else if (container.classList.contains("dark")) {
@@ -56,16 +58,34 @@ function handleMouseOverMode(event) {
 }
 
 function handleClickMode(event) {
+    if (isDrawing) return;
     const box = event.target;
-    if (!box || !box.classList || !box.classList.contains("box")) return;
-    if (container.classList.contains("rainbow")) {
-        handleRainbowMode(box);
-    } else if (container.classList.contains("dark")) {
-        handleDarkMode(box);
-    } else if (container.classList.contains("color")) {
-        handleColorPickerMode(box);
-    } else if (container.classList.contains("eraser")) {
-        handleEraserMode(box);
+    if (!box.classList.contains("box")) return;
+
+    if (container.classList.contains("rainbow") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = randomColor();
+    } else if (container.classList.contains("dark") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = generateDarkShade();
+    } else if (container.classList.contains("color") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = chosenColor;
+    } else if (container.classList.contains("eraser") && box.style.backgroundColor !== "white") {
+        box.style.backgroundColor = "white";
+    }
+}
+
+function handleMouseMove(event) {
+    if (!isDrawing) return;
+    const box = event.target;
+    if (!box.classList.contains("box")) return;
+
+    if (container.classList.contains("rainbow") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = randomColor();
+    } else if (container.classList.contains("dark") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = generateDarkShade();
+    } else if (container.classList.contains("color") && box.style.backgroundColor === "white") {
+        box.style.backgroundColor = chosenColor;
+    } else if (container.classList.contains("eraser") && box.style.backgroundColor !== "white") {
+        box.style.backgroundColor = "white";
     }
 }
 
@@ -98,22 +118,6 @@ function handleColorPickerMode(box) {
 
 function handleEraserMode(box) {
     if (!isDrawing && box.style.backgroundColor !== "white") {
-        box.style.backgroundColor = "white";
-    }
-}
-
-function handleMouseMove(event) {
-    if (!isDrawing) return;
-    const box = event.target;
-    if (!box.classList.contains("box")) return;
-
-    if (container.classList.contains("rainbow") && box.style.backgroundColor === "white") {
-        box.style.backgroundColor = randomColor();
-    } else if (container.classList.contains("dark") && box.style.backgroundColor === "white") {
-        box.style.backgroundColor = generateDarkShade();
-    } else if (container.classList.contains("color") && box.style.backgroundColor === "white") {
-        box.style.backgroundColor = chosenColor;
-    } else if (container.classList.contains("eraser") && box.style.backgroundColor !== "white") {
         box.style.backgroundColor = "white";
     }
 }
